@@ -76,6 +76,35 @@ class TestDBStorage(unittest.TestCase):
         self.cursor.close()
         self.db.close()
 
+    def test_delete_row(self):
+        """Tests deleting a row from a table"""
+        state = State(name='New York')
+        state.save()
+        initial_rows = len(State.all())
+        state.delete()
+        final_rows = len(State.all())
+        self.assertLess(final_rows, initial_rows)
+
+    def test_reload(self):
+        """Tests reloading the database storage"""
+        state = State(name='California')
+        state.save()
+        initial_rows = len(State.all())
+        db_storage.reload()
+        final_rows = len(State.all())
+        self.assertEqual(final_rows, initial_rows)
+
+    def test_all_rows(self):
+        """Tests retrieving all rows from a table"""
+        state1 = State(name='Texas')
+        state1.save()
+        state2 = State(name='Florida')
+        state2.save()
+        rows = State.all()
+        self.assertEqual(len(rows), 2)
+        self.assertIn(state1, rows)
+        self.assertIn(state2, rows)
+
 
 if __name__ == "__main__":
     unittest.main()

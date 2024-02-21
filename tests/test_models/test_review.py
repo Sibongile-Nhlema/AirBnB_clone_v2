@@ -85,6 +85,27 @@ class TestReview(unittest.TestCase):
 
         self.assertEqual(result.total_errors, 0, 'Found style errors.')
 
+    def __init__(self, *args, **kwargs):
+        """Initialize the TestReview class"""
+        super().__init__(*args, **kwargs)
+        self.model_name = "Review"
+        self.model_instance = Review
+
+    def test_place_id(self):
+        """Test if the place_id attribute is a string"""
+        review_instance = self.model_instance()
+        self.assertEqual(type(review_instance.place_id), str)
+
+    def test_user_id(self):
+        """Test if the user_id attribute is a string"""
+        review_instance = self.model_instance()
+        self.assertEqual(type(review_instance.user_id), str)
+
+    def test_text(self):
+        """Test if the text attribute is a string"""
+        review_instance = self.model_instance()
+        self.assertEqual(type(review_instance.text), str)
+
 
 if __name__ == "__main__":
     unittest.main()
