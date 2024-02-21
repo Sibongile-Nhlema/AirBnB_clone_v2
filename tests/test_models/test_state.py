@@ -79,6 +79,17 @@ class TestState(unittest.TestCase):
 
         self.assertEqual(result.total_errors, 0, 'Found style errors.')
 
+    def __init__(self, *args, **kwargs):
+        """Initialize the TestState class."""
+        super().__init__(*args, **kwargs)
+        self.name = "State"
+        self.value = State
+
+    def test_name_with_string_value(self):
+        """Test if the 'name' attribute of State is a string."""
+        new_state = self.value()
+        self.assertEqual(type(new_state.name), str)
+
 
 if __name__ == "__main__":
     unittest.main()
