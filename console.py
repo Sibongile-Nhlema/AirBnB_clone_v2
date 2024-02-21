@@ -142,7 +142,8 @@ class HBNBCommand(cmd.Cmd):
             elif key_value[1].isdigit():
                 value = value = int(key_value[1])
             elif '.' in key_value[1] and \
-                    all(part.replace('-', '').isdigit() for part in key_value[1].split('.')):
+                    all(part.replace('-', '').isdigit()
+                        for part in key_value[1].split('.')):
                 value = float(key_value[1])
             else:
                 value = None
