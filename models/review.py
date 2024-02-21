@@ -6,14 +6,7 @@ from models import type_of_storage
 
 
 class Review(BaseModel, Base):
-    """
-    Review class to store review information
-
-    Attributes:
-        place_id: place id
-        user_id: user id
-        text: review description
-    """
+    """Review class to store review information"""
 
     __tablename__ = 'reviews'
 

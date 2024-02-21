@@ -1,9 +1,5 @@
 #!/usr/bin/python3
-"""
-Unittests:
-
-test_review
-"""
+""" """
 from models.base_model import BaseModel
 from models.review import Review
 import unittest

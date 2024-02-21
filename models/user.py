@@ -7,15 +7,7 @@ from models import type_of_storage
 
 
 class User(BaseModel, Base):
-    """
-    This class defines a user by various attributes
-
-    Attributes:
-        email: email address
-        password: password for you login
-        first_name: first name
-        last_name: last name
-    """
+    """This class defines a user by various attributes"""
 
     __tablename__ = 'users'
 
