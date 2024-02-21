@@ -135,6 +135,7 @@ class HBNBCommand(cmd.Cmd):
                 continue
 
             key = key_value[0]
+            value = None
 
             if key_value[1].startswith('"') and key_value[1].endswith('"'):
                 value = key_value[1][1:-1].replace('_', ' ')
