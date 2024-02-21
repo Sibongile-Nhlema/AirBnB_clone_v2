@@ -2,6 +2,7 @@
 """ 
 Unittest classes:
 
+test_basemodel
 test_documentation
 test_following_pep8
 test_hasattr
