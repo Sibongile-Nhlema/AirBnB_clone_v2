@@ -88,6 +88,18 @@ class TestUser(unittest.TestCase):
 
         self.assertEqual(result.total_errors, 0, 'Found style errors.')
 
+    def test_relationship_places(self):
+        """Tests the relationship between User and Place"""
+
+        self.assertEqual(type(self.user.places), list)
+        self.assertEqual(len(self.user.places), 0)
+
+    def test_relationship_reviews(self):
+        """Tests the relationship between User and Review"""
+
+        self.assertEqual(type(self.user.reviews), list)
+        self.assertEqual(len(self.user.reviews), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
