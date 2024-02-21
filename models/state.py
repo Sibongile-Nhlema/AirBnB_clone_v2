@@ -8,7 +8,12 @@ from models import type_of_storage
 
 
 class State(BaseModel, Base):
-    """ State class """
+    """
+    State class
+
+    Attributes:
+        name: input name
+    """
 
     __tablename__ = "states"
 
