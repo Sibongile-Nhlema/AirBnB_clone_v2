@@ -74,7 +74,6 @@ class TestConsole(unittest.TestCase):
             self.assertFalse(output.startswith("Place"))
             self.assertNotIn("'latitude': 9.99", output)
 
-
     def test_show(self):
         """Tests show command"""
 
