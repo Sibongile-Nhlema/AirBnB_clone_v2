@@ -62,6 +62,18 @@ class TestConsole(unittest.TestCase):
                 'create User email="sebby@m.com" password="d7f48g"')
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd("all User")
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd('create User name=Patrick Star age="25"')
+            output = f.getvalue().strip()
+            self.assertFalse(output.startswith("User."))
+            self.assertNotIn("'name': 'Patrick Star'", output)
+            self.assertNotIn("'age': 25", output)
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd('create Place latitude=9.99')
+            output = f.getvalue().strip()
+            self.assertFalse(output.startswith("Place"))
+            self.assertNotIn("'latitude': 9.99", output)
+
 
     def test_show(self):
         """Tests show command"""
