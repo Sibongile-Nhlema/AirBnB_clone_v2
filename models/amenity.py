@@ -8,11 +8,7 @@ from models import type_of_storage
 
 
 class Amenity(BaseModel, Base):
-    '''Class for Amenities
-        Attributes:
-            name = name of the amenity
-            place_amenities: many to many relationship with place
-    '''
+    '''Class for Amenities'''
 
     __tablename__ = 'amenities'
 

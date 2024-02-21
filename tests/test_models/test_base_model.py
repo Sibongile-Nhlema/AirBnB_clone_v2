@@ -1,20 +1,5 @@
 #!/usr/bin/python3
-""" 
-Unittest classes:
-
-test_basemodel
-test_documentation
-test_following_pep8
-test_hasattr
-test_isinstance
-test_save
-test_to_dict
-test_default
-test_kwargs
-test_kwargs_int
-test_save_additional
-test_str_additional
-"""
+""" """
 from models.base_model import BaseModel
 import unittest
 import datetime
