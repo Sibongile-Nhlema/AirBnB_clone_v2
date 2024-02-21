@@ -142,7 +142,8 @@ class HBNBCommand(cmd.Cmd):
             elif key_value[1].isdigit():
                 value = value = int(key_value[1])
             elif '.' in key_value[1] and \
-                    all(part.replace('-', '').isdigit() for part in key_value[1].split('.')):
+                    all(part.replace('-', '').isdigit()
+                        for part in key_value[1].split('.')):
                 value = float(key_value[1])
 
             parameters[key] = value
@@ -232,14 +233,22 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage.all(HBNBCommand.classes[args]).items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
-        else:
-            for k, v in storage.all().items():
-                print_list.append(str(v))
 
-        print(print_list)
+            objects = storage.all()
+            str_representations = []
+            for key, obj in objects.items():
+                if key.split('.')[0] == args:
+                    str_representations.append(str(obj))
+            print(
+                '[' +
+                ', '.join(f'{str_repr}'
+                          for str_repr in str_representations)
+                + ']'
+                )
+        else:
+            objects = storage.all()
+            str_representations = [f'{str(obj)}' for obj in objects.values()]
+            print('[' + ', '.join(str_representations) + ']')
 
     def help_all(self):
         """ Help information for the all command """
