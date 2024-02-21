@@ -233,22 +233,14 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-
-            objects = storage.all()
-            str_representations = []
-            for key, obj in objects.items():
-                if key.split('.')[0] == args:
-                    str_representations.append(str(obj))
-            print(
-                '[' +
-                ', '.join(f'{str_repr}'
-                          for str_repr in str_representations)
-                + ']'
-                )
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
+                if k.split('.')[0] == args:
+                    print_list.append(str(v))
         else:
-            objects = storage.all()
-            str_representations = [f'{str(obj)}' for obj in objects.values()]
-            print('[' + ', '.join(str_representations) + ']')
+            for k, v in storage.all().items():
+                print_list.append(str(v))
+
+        print(print_list)
 
     def help_all(self):
         """ Help information for the all command """
