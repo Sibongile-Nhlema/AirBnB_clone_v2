@@ -135,13 +135,14 @@ class HBNBCommand(cmd.Cmd):
                 continue
 
             key = key_value[0]
+            value = None
 
             if key_value[1].startswith('"') and key_value[1].endswith('"'):
                 value = key_value[1][1:-1].replace('_', ' ')
             elif key_value[1].isdigit():
                 value = value = int(key_value[1])
             elif '.' in key_value[1] and \
-                    all(part.isdigit() for part in key_value[1].split('.')):
+                    all(part.replace('-', '').isdigit() for part in key_value[1].split('.')):
                 value = float(key_value[1])
             else:
                 value = None
