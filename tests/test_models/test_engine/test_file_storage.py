@@ -131,6 +131,56 @@ class TestFileStorage(unittest.TestCase):
         """ FileStorage object storage created """
         self.assertEqual(type(storage), file_storage.FileStorage)
 
+    def test_delete(self):
+        """Test the delete method of the FileStorage class"""
+        obj = BaseModel()
+        storage.new(obj)
+        storage.save()
+
+        self.assertIn(obj, storage.all().values())
+        storage.delete(obj)
+        self.assertNotIn(obj, storage.all().values())
+
+    def test_delete_none(self):
+        """Test the delete method of the FileStorage class with obj=None"""
+
+        obj = BaseModel()
+        storage.new(obj)
+        storage.save()
+
+        self.assertIn(obj, storage.all().values())
+        storage.delete(None)
+        self.assertIn(obj, storage.all().values())
+
+    def test_all(self):
+        """Test the all method of the FileStorage class"""
+
+        obj1 = BaseModel()
+        obj2 = BaseModel()
+        obj3 = BaseModel()
+        storage.new(obj1)
+        storage.new(obj2)
+        storage.new(obj3)
+        storage.save()
+
+        all_objects = storage.all()
+
+        self.assertIn(obj1, all_objects.values())
+        self.assertIn(obj2, all_objects.values())
+        self.assertIn(obj3, all_objects.values())
+
+        base_model_objects = storage.all(BaseModel)
+
+        self.assertIn(obj1, base_model_objects.values())
+        self.assertIn(obj2, base_model_objects.values())
+        self.assertIn(obj3, base_model_objects.values())
+
+        user_objects = storage.all(User)
+
+        self.assertNotIn(obj1, user_objects.values())
+        self.assertNotIn(obj2, user_objects.values())
+        self.assertNotIn(obj3, user_objects.values())
+
 
 if __name__ == "__main__":
     unittest.main()

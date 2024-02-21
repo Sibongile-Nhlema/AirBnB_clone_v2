@@ -82,6 +82,43 @@ class test_basemodel(unittest.TestCase):
         self.assertIsInstance(dict['updated_at'], str)
         self.assertEqual(self.base_model.__class__.__name__, 'BaseModel')
 
+    # Additional Tests
+    def test_default(self):
+        """Tests the default constructor"""
+        instance = BaseModel()
+        self.assertEqual(type(instance), BaseModel)
+
+    def test_kwargs(self):
+        """Tests the constructor with keyword arguments"""
+        instance = BaseModel()
+        copy = instance.to_dict()
+        new = BaseModel(**copy)
+        self.assertFalse(new is instance)
+
+    def test_kwargs_int(self):
+        """Tests the constructor with invalid keyword arguments"""
+        instance = BaseModel()
+        copy = instance.to_dict()
+        copy.update({1: 2})
+        with self.assertRaises(TypeError):
+            new = BaseModel(**copy)
+
+    def test_save_additional(self):
+        """Tests the save method for additional functionality"""
+        instance = BaseModel()
+        instance.save()
+        key = 'BaseModel.' + instance.id
+        with open('file.json', 'r') as f:
+            data = json.load(f)
+            self.assertEqual(data[key], instance.to_dict())
+
+    def test_str_additional(self):
+        """Tests the __str__ method for additional functionality"""
+        instance = BaseModel()
+        expected_output = '[BaseModel] ({}) {}'.format(instance.id,
+                                                       instance.__dict__)
+        self.assertEqual(str(instance), expected_output)
+
 
 if __name__ == "__main__":
     unittest.main()
