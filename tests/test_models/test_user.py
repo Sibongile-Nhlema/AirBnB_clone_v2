@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-""" """
+"""
+Unittests:
+
+test_User
+"""
 from models.base_model import BaseModel
 from models.user import User
 import unittest
