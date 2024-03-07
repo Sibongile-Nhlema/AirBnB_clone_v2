@@ -27,7 +27,8 @@ sudo echo "<html>
 	</head>
 	<body>
 	<p>Welcome to TownsVille</p>
-	</body>" > sudo tee /data/web_static/releases/test/index.html
+	</body>
+	</html> " > sudo tee /data/web_static/releases/test/index.html
 
 # Create Symbolic link between /data/web_static/current
 # and /data/web_static/releases/test/
