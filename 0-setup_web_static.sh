@@ -21,7 +21,7 @@ sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 
 # Create a fake HTML file /data/web_static/releases/test/index.html
-sudo echo "<html>
+echo "<html>
 	<head>
 	<title>Task 0</title>
 	</head>
