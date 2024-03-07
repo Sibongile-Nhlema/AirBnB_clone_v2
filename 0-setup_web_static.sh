@@ -2,26 +2,32 @@
 # Script that sets up web server for the deployment of web_static
 
 # Install Nginx
-sudo apt update
-sudo apt install nginx -y
+sudo apt-get update
+sudo apt-get install nginx -y
 
 # Create /data
-mkdir /data
+sudo mkdir -p /data
 
 # Create /data/web_static/
-mkdir /data/web/static/
+sudo mkdir -p /data/web/static/
 
 # Create /data/web_static/releases/
-mkdir /data/web_static/releases
+sudo mkdir -p /data/web_static/releases
 
 # Create /data/web_static/shared/
-mkdir /data/web_static/shared/
+sudo mkdir -p /data/web_static/shared/
 
 # Create /data/web_static/releases/test/
-mkdir /data/web_static/releases/test/
+sudo mkdir -p /data/web_static/releases/test/
 
 # Create a fake HTML file /data/web_static/releases/test/index.html
-echo "Welcome to TownsVille" > /data/web_static/releases/test/index.html
+sudo echo "<html>
+	<head>
+	<title>Task 0</title>
+	</head>
+	<body>
+	<p>Welcome to TownsVille</p>
+	</body>" > sudo tee /data/web_static/releases/test/index.html
 
 # Create Symbolic link between /data/web_static/current
 # and /data/web_static/releases/test/
@@ -31,12 +37,12 @@ path_link="/data/web_static/current"
 target="/data/web_static/releases/test/"
 
 if [ -L "$path_link" ]; then
-	rm "$path_link"
+	sudo rm "$path_link"
 fi
 
-ln -s "$target" "$path_link"
+sudo ln -s "$target" "$path_link"
 
-echo "Symbolic link created"
+sudo echo "Symbolic link created"
 
 # Give ownership of /data/ to ubuntu user and group
 sudo chown -R ubuntu:ubuntu /data
@@ -47,8 +53,8 @@ nginx_config="/etc/nginx/sites-available/default"
 web_static_path="/data/web_static/current/"
 alias_path="/hbnb_static"
 
-echo "location $alias_path {" | sudo tee -a "$nginx_config"
-echo "	alias $web_static_path;" | sudo tee -a "$nginx_config"
-echo "}" | sudo tee -a "$nginx_config"
+if ! grep -q "$alias_path" "$nginx_config"; then
+    sudo sed -i "/location \/ {/a location $alias_path {\\n  alias $web_static_path;\\n}" "$nginx_config"
+fi
 
 sudo service nginx restart
