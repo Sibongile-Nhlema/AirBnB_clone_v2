@@ -19,7 +19,7 @@ echo "<html>
 	<body>
 		<p>Welcome to TownsVille</p>
 	</body>
-</html>" | tee /data/web_static/releases/test/index.html > /dev/null
+</html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 
 # Create symbolic link and update ownership
 path_link="/data/web_static/current"
