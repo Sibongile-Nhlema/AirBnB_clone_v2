@@ -19,7 +19,8 @@ def do_pack():
 
     t = datetime.now()
     time_string = t.strftime('%y%m%d%H%M%S')
-    local('sudo tar -cvzf versions/web_static_{}.tgz web_static'.format(time_string))
+    local('sudo tar -cvzf \
+            versions/web_static_{}.tgz web_static'.format(time_string))
     file_path = 'versions/web_static_{}.tgz'.format(time_string)
     file_string = os.path.getsize('{}'.format(file_path))
     print('web_static packed: {} -> {}'.format(file_path, file_string))
@@ -39,7 +40,8 @@ def do_deploy(archive_path):
         folder_name = archive_filename.split('.')[0]
         run('sudo mkdir -p /data/web_static/releases/{}/'.format(folder_name))
         run('sudo tar -xzf /tmp/{} -C \
-                /data/web_static/releases/{}/'.format(archive_filename, folder_name))
+                /data/web_static/releases/{}/'.format(archive_filename,
+                                                      folder_name))
 
         # delete the uploae archive
         run('sudo rm /tmp/{}'.format(archive_filename))
@@ -51,7 +53,6 @@ def do_deploy(archive_path):
 
         print("New version deployed!")
         return True
-
 
     except Exception as e:
         print("Deployment failed:", str(e))
