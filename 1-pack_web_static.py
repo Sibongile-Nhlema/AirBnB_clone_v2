@@ -15,11 +15,11 @@ def do_pack():
     local('sudo mkdir -p versions')
 
     t = datetime.now()
-    t_str = t.strftime('%y%m%d%H%M%S')
-    local('sudo tar -cvzf versions/web_static_{}.tgz web_static'.format(t_str))
-    f_path = 'versions/web_static_{}.tgz'.format(t_str)
-    f_size = os.path.getsize('{}'.format(f_path))
-    print('web_static packed: {} -> {}'.format(f_path, f_size))
+    time_string = t.strftime('%y%m%d%H%M%S')
+    local('sudo tar -cvzf versions/web_static_{}.tgz web_static'.format(time_string))
+    file_path = 'versions/web_static_{}.tgz'.format(time_string)
+    file_string = os.path.getsize('{}'.format(file_path))
+    print('web_static packed: {} -> {}'.format(file_path, file_string))
 
 
 do_pack()
