@@ -9,6 +9,7 @@ from fabric.api import *
 from datetime import datetime
 import os
 
+
 def do_pack():
     ''' Function generates a tgz archive file if it doesn't exist '''
     local('sudo mkdir -p versions')
@@ -20,5 +21,5 @@ def do_pack():
     f_size = os.path.getsize('{}'.format(f_path))
     print('web_static packed: {} -> {}'.format(f_path, f_size))
 
-do_pack()
 
+do_pack()
