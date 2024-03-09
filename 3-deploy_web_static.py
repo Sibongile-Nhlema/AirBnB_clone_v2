@@ -1,0 +1,72 @@
+#!/usr/bin/python3
+'''
+a Fabric script that distributes an archive to
+webservers.
+'''
+
+from fabric.api import *
+from datetime import datetime
+from os.path import exists
+import os
+
+env.hosts = ['100.25.222.45', '18.207.142.12']
+env.user = 'ubuntu'
+
+
+def do_pack():
+    ''' Function generates a tgz archive file if it doesn't exist '''
+    local('sudo mkdir -p versions')
+
+    t = datetime.now()
+    time_string = t.strftime('%y%m%d%H%M%S')
+    local('sudo tar -cvzf \
+            versions/web_static_{}.tgz web_static'.format(time_string))
+    file_path = 'versions/web_static_{}.tgz'.format(time_string)
+    file_string = os.path.getsize('{}'.format(file_path))
+    print('web_static packed: {} -> {}'.format(file_path, file_string))
+
+
+def do_deploy(archive_path):
+    ''' Deploys the archive to the web servers '''
+    if not exists(archive_path):
+        return False
+
+    try:
+        # Upload archive to /tmp/ on the web server
+        put(archive_path, '/tmp/')
+
+        # Extract the contents of the archive to the web server
+        archive_filename = archive_path.split('/')[-1]
+        archive_base_name = archive_filename.split('.')[0]
+        deploy_path = '/data/web_static/releases/{}/'.format(archive_base_name)
+
+        run('sudo mkdir -p {}'.format(deploy_path))
+        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_filename,
+                                                 deploy_path))
+        run('sudo rm /tmp/{}'.format(archive_filename))
+
+        # Use rsync to copy contents and delete web_static directory
+        run('sudo rsync -a {0}web_static/ {0}'.format(deploy_path))
+        run('sudo rm -rf {0}web_static'.format(deploy_path))
+
+        # Update symbolic link
+        run('sudo rm -rf /data/web_static/current')
+        run('sudo ln -s {} /data/web_static/current'.format(deploy_path))
+
+        print("New version deployed!")
+        return True
+
+    except Exception as e:
+        print("Deployment failed:", str(e))
+        return False
+
+def deploy():
+    # Call the do_pack() function and store the path of the created archive
+    archive_path = do_pack()
+
+    # Return False if no archive has been created
+    if not archive_path:
+        return False
+
+    # Call the do_deploy(archive_path) function, using the new path of the new archive
+    return do_deploy(archive_path)
