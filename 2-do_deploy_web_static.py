@@ -36,16 +36,16 @@ def do_deploy(archive_path):
         put(archive_path, '/tmp/')
 
         # Extract the contents of the archive to the web server
-        archive_file = archive_path.split('/')[-1]
-        base_name = archive_file.split('.')[0]
-        deploy_path = '/data/web_static/releases/{}/'.format(base_name)
+        archive_filename = archive_path.split('/')[-1]
+        archive_base_name = archive_filename.split('.')[0]
+        deploy_path = '/data/web_static/releases/{}/'.format(archive_base_name)
 
         run('sudo mkdir -p {}'.format(deploy_path))
-        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_file, deploy_path))
-        run('sudo rm /tmp/{}'.format(archive_file))
+        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_filename, deploy_path))
+        run('sudo rm /tmp/{}'.format(archive_filename))
 
-        # Move contents and delete web_static directory
-        run('sudo mv {0}web_static/* {0}'.format(deploy_path))
+        # Use rsync to copy contents and delete web_static directory
+        run('sudo rsync -a {0}web_static/ {0}'.format(deploy_path))
         run('sudo rm -rf {0}web_static'.format(deploy_path))
 
         # Update symbolic link
