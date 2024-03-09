@@ -27,34 +27,30 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    ''' delpoys the archive to the web servers '''
+    ''' Deploys the archive to the web servers '''
     if not exists(archive_path):
         return False
 
     try:
-        # upload archive to /tmp/ in web server
+        # Upload archive to /tmp/ on the web server
         put(archive_path, '/tmp/')
 
-        # Extract the contents of the archive to the web servers
-        archive_filename = archive_path.split('/')[-1]
-        folder_name = archive_filename.split('.')[0]
-        run('sudo mkdir -p /data/web_static/releases/{}/'.format(folder_name))
-        run('sudo tar -xzf /tmp/{} -C \
-                /data/web_static/releases/{}/'.format(archive_filename,
-                                                      folder_name))
+        # Extract the contents of the archive to the web server
+        archive_file = archive_path.split('/')[-1]
+        base_name = archive_file.split('.')[0]
+        deploy_path = '/data/web_static/releases/{}/'.format(base_name)
 
-        # delete the uploae archive
-        run('sudo rm /tmp/{}'.format(archive_filename))
+        run('sudo mkdir -p {}'.format(deploy_path))
+        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_file, deploy_path))
+        run('sudo rm /tmp/{}'.format(archive_file))
 
-        run('sudo mv /data/web_static/releases/{}/web_static/* \
-                /data/web_static/releases/{}/'.format(folder_name, folder_name))
-        run('sudo rm -rf \
-                /data/web_static/releases/{}/web_static'.format(folder_name,
-                                                                folder_name))
-        # delte the symbolic link and create a new one
+        # Move contents and delete web_static directory
+        run('sudo mv {0}web_static/* {0}'.format(deploy_path))
+        run('sudo rm -rf {0}web_static'.format(deploy_path))
+
+        # Update symbolic link
         run('sudo rm -rf /data/web_static/current')
-        run('sudo ln -s /data/web_static/releases/{}/ \
-                /data/web_static/current'.format(folder_name))
+        run('sudo ln -s {} /data/web_static/current'.format(deploy_path))
 
         print("New version deployed!")
         return True
