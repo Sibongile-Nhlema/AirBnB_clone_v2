@@ -60,6 +60,7 @@ def do_deploy(archive_path):
         print("Deployment failed:", str(e))
         return False
 
+
 def deploy():
     ''' creates and distributes an archive to web servers,
         using the function deploy
@@ -71,5 +72,5 @@ def deploy():
     if not archive_path:
         return False
 
-    # Call the do_deploy(archive_path) function, using the new path of the new archive
+    # Call the do_deploy() function, using the new path of the new archive
     return do_deploy(archive_path)
