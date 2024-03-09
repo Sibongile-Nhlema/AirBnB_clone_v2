@@ -61,6 +61,9 @@ def do_deploy(archive_path):
         return False
 
 def deploy():
+    ''' creates and distributes an archive to web servers,
+        using the function deploy
+    '''
     # Call the do_pack() function and store the path of the created archive
     archive_path = do_pack()
 
