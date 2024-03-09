@@ -41,7 +41,8 @@ def do_deploy(archive_path):
         deploy_path = '/data/web_static/releases/{}/'.format(archive_base_name)
 
         run('sudo mkdir -p {}'.format(deploy_path))
-        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_filename, deploy_path))
+        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_filename,
+                                                 deploy_path))
         run('sudo rm /tmp/{}'.format(archive_filename))
 
         # Use rsync to copy contents and delete web_static directory
