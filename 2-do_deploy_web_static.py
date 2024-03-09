@@ -46,8 +46,13 @@ def do_deploy(archive_path):
         # delete the uploae archive
         run('sudo rm /tmp/{}'.format(archive_filename))
 
+        run('sudo mv /data/web_static/releases/{}/web_static/* \
+                /data/web_static/releases/{}/'.format(folder_name, folder_name))
+        run('sudo rm -rf \
+                /data/web_static/releases/{}/web_static'.format(folder_name,
+                                                                folder_name))
         # delte the symbolic link and create a new one
-        run('sudo rm -f /data/web_static/current')
+        run('sudo rm -rf /data/web_static/current')
         run('sudo ln -s /data/web_static/releases/{}/ \
                 /data/web_static/current'.format(folder_name))
 
