@@ -19,7 +19,8 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_hbhn(text):
-    text = text.replace('_', ' '):
+    ''' fuxntion that handles variables '''
+    text = text.replace('_', ' ')
     return f'C {escape(text)}'
 
 
