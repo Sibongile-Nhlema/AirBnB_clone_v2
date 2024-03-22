@@ -25,7 +25,7 @@ def c_hbhb(text):
 
 
 @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
-@app.route('/puthon/<text>', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
 def py_hbnb(text):
     ''' function that handles variables '''
     text = text.replace('_', ' ')
