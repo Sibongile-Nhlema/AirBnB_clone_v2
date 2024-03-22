@@ -21,7 +21,7 @@ def hbnb():
 def c_hbhn(text):
     ''' fuxntion that handles variables '''
     text = text.replace('_', ' ')
-    return f'C {escape(text)}'
+    return f'C {text}'
 
 
 if __name__ == '__main__':
