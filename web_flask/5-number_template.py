@@ -42,7 +42,7 @@ def is_number_hbnh(n):
 def number_templates_hnbn(n):
     ''' function that displays an html if n is an integer '''
     if isinstance(n, int):
-        return render_template('./templates/5-number_template.html', number=n)
+        return render_template('templates/5-number.html', number=n)
 
 
 if __name__ == '__main__':
