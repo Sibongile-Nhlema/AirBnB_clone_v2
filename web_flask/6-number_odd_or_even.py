@@ -47,11 +47,11 @@ def number_templates_hnbn(n):
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def odd_or_even_hbnb(n):
-    ''' function that renders pages based on whether the input is odd or even '''
+    ''' renders pages based on whether the input is odd or even '''
     if n % 2 == 0:
-       message = f'{n} is even'
+        message = f'{n} is even'
     else:
-       message = f'{n} is odd'
+        message = f'{n} is odd'
     return render_template('6-number_odd_or_even.html', message=message)
 
 
