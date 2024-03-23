@@ -37,12 +37,13 @@ def is_number_hbnh(n):
     ''' function that handles numerical variables '''
     return f'{n} is a number'
 
-
+'''
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_templates_hnbn(n):
     ''' function that displays an html if n is an integer '''
     if isinstance(n, int):
         return render_template('templates/5-number.html', number=n)
+'''
 
 
 if __name__ == '__main__':
