@@ -12,27 +12,27 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown_db(exception):
-	""" Method to remove the current SQLAlchemy Session """
-	storage.close()
+    """ Method to remove the current SQLAlchemy Session """
+    storage.close()
 
 
 @app.route('/states', strict_slashes=False)
 def display_states():
-	""" Display a HTML page with a list of all State objects """
-	states = storage.all("State").values()
-	return render_template('9-states.html', states=states)
+    """ Display a HTML page with a list of all State objects """
+    states = storage.all("State").values()
+    return render_template('9-states.html', states=states)
 
 
 @app.route('/states/<id>', strict_slashes=False)
 def display_state_cities(id):
-	""" Display a HTML page with the list of
-	    City objects linked to the State
-	"""
-	state = storage.get("State", id)
-	if state is None:
-		return render_template('9-states.html', state=None)
-	return render_template('9-states.html', state=state)
+    """ Display a HTML page with the list of
+    City objects linked to the State
+    """
+    state = storage.get("State", id)
+    if state is None:
+        return render_template('9-states.html', state=None)
+    return render_template('9-states.html', state=state)
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
