@@ -133,4 +133,4 @@ class DBStorage():
         Closes the current session.
         """
 
-        self.__session.remove()
+        self.__session.close()
