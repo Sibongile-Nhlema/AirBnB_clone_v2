@@ -23,7 +23,7 @@ def display_states_list():
     """
     Display a HTML page with a list of all State objects
     """
-    states = storage.all(State).values()
+    states = sorted(list(storage.all("State").values()), key=lamda x: x.name)
     return render_template('7-states_list.html', states=states)
 
 
