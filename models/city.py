@@ -5,6 +5,7 @@ from sqlalchemy import Column, String
 from sqlalchemy import ForeignKey
 from models import type_of_storage
 from sqlalchemy.orm import relationship
+from models.place import Place
 
 
 class City(BaseModel, Base):
